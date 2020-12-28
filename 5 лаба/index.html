@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+     </head>
+  <body>
+    <h1>
+      laba 4
+    </h1>
+
+    <div id="get_result2"></div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">name</th>
+          <th scope="col">bDay</th>
+        </tr>        
+      </thead>
+      <tbody id="get_result">
+
+      </tbody>
+    </table>
+    <button type="button" class="btn btn-success btn-lg"onclick="Get()">Get</button>
+    <script>
+        function Get() {
+            console.log("GET");
+            fetch("http://localhost:5000", {
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((pdata) => {
+                get_result.innerHTML = "";
+            console.log("pdata", pdata);
+            pdata.forEach((el) => {
+              get_result.innerHTML +=
+              '<tr> <td>'+
+                el.id + "</td><td> " + el.name + "</td><td> " + el.bday + " </td><td> </tr";
+            });
+          })
+          .then((response) => {
+            console.log(response + "dsa");
+          });
+          
+      }
+    
+    </script>
+    <div style="padding: 20px;">
+      <div class="row">
+        <label class="col-2"> идентификатор</label>
+        <input type="number" class="col-3" id = "ID" min="0"/>
+      </div>
+      <div class="row">
+        <label class="col-2"> ФИО</label>
+        <input type="text" class="col-3" id="Name" />
+      </div>
+      <div class="row">
+        <label class="col-2"> дата рождения </label>
+        <input type="date" class="col-3" id="Bday" />
+      </div>
+      <div>
+        <button type="button" class="btn btn-primary btn-lg"onclick="Post()">Post</button>
+        <button type="button" class="btn btn-warning btn-lg"onclick="Put()">Put</button>
+        <button type="button" class="btn btn-danger btn-lg"onclick="Delete()">Delete</button>
+      </div>
+      <script>
+           function Put() {
+          console.log("PUT");
+          fetch("http://localhost:5000", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({id:ID.value,name: Name.value, bday: Bday.value})
+          });
+          Get();
+        }
+
+        function Post() {
+          console.log("POST");
+          fetch("http://localhost:5000", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({id:ID.value,name: Name.value, bday: Bday.value})
+          });
+          Get();
+        }
+        function Delete() {
+          console.log("DELETE");
+          fetch("http://localhost:5000", {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({id:ID.value,name: Name.value, bday: Bday.value})
+          });
+          Get();
+        }
+    
+      </script>
+    </div>
+  </body>
+</html>

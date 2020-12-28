@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <div style="width:100%; height: 600px; display: flex; flex-direction: row; align-items: center; justify-content: center;">
+            <div style="text-align: center;">
+                <span id="result" style="font-size: 27px;">
+                    My name is
+                </span>
+            </div>
+        </div>
+
+        <script>
+            fetch('http://localhost:3000/api/name', {method: 'GET', mode:'cors'})
+            .then( response => {console.log(response) ; return response.text(); })
+            .then( body => {
+                
+                let rs = document.getElementById('result')
+                rs.innerHTML += body
+            })
+        </script>
+    </body>
+</html>

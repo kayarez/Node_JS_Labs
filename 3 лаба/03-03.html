@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <div id="result"></div>
+
+        <script>
+            
+            const d = Date.now();
+            for(i=0; i< 20; i++) {
+                fetch('http://localhost:5000/fact?k='+i, {method: 'GET', mode:'cors', headers: {'Accept':'application/json'}})
+                .then(response => {console.log(response.text); return response.json(); })
+                .then(result => {
+                    let html=''
+                    html += `<h4>${result['k']} Результат: ${Date.now()-d}-${result['k']}/${result['fact']}</h4>`
+                    let div = document.getElementById('result')
+                    div.innerHTML+=html
+                    })
+            }
+            
+        </script>
+    </body>
+</html>

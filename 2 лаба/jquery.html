@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <div style="width:100%; height: 600px; display: flex; flex-direction: row; align-items: center; justify-content: center;">
+            <div style="text-align: center;">
+                <span id="result" style="font-size: 27px;">
+                     My name is
+                </span>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script>
+            $.get('http://localhost:3000/api/name', function(name) {
+                let rs = document.getElementById('result')
+                rs.innerHTML += name
+            })
+        </script>
+    </body>
+</html>

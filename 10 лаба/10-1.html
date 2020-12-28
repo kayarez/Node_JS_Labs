@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Lab10</title>
+    </head>
+    <body>
+        <h3>Lab10</h3>
+        <button  onclick="startWS()">Start WS server</button>
+        <div id="messages">
+            <span>WebSocket server messages</span>
+        </div>
+        <script>
+            let n =0
+            function startWS() {
+                let socket = new WebSocket('ws://localhost:4000/wsserver')
+                socket.onopen = () => {
+                    console.log('socket onopen')
+                    setInterval(() => { socket.send(`10-01-client:${++n}`)}, 3000)
+                    setTimeout(() => {socket.close()}, 25000)
+                }
+                socket.onmessage = (e) => {
+                    console.log('socket onmessage')
+                    let div = document.getElementById('messages')
+                    div.innerHTML += e.data
+                }
+                socket.onclose = (e) => {
+                    console.log('socket onclose')
+                }
+            }
+        </script>
+    </body>
+</html>
